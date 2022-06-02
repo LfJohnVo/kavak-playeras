@@ -1,4 +1,25 @@
 <div>
+
+    @if ($currentStep == 0 || $currentStep == 5)
+        <style>
+            body {
+                background-image: url({{ asset('assets/fondo-azul.png') }});
+            }
+
+            .progress {
+                display: none;
+            }
+
+        </style>
+    @else
+        <style>
+            body {
+                background-image: url({{ asset('assets/fondo-blanco.png') }});
+            }
+
+        </style>
+    @endif
+
     <div class="progress">
         @switch($currentStep)
             @case(1)
@@ -20,6 +41,23 @@
         @endswitch
     </div>
     <br>
+    <div class="row setup-content {{ $currentStep != 0 ? 'displayNone' : '' }}" id="step-0">
+        <div class="col-xs-12">
+            <div class="col-md-12" style="margin: 10%;">
+                <img style="padding-bottom: 5%;" src="{{ asset('assets/logo-kavak.png') }}">
+                <h1 class="text-white">Personaliza el</h1>
+                <h1 class="text-white">jersey gigante</h1>
+                <h1 class="text-white">con tu nombre</h1>
+                <h1 class="text-white">y número</h1>
+                <br>
+                <div align="center" style="padding-top: 30px;">
+                    <button class="btn btn-white nextBtn btn-lg pull-right text-dark" wire:click="enter"
+                        type="button">Continuar</button>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row setup-content {{ $currentStep != 1 ? 'displayNone' : '' }}" id="step-1">
         <div class="col-xs-12">
             <div class="col-md-12">
@@ -111,6 +149,7 @@
 
                 <div align="center" style="padding-top: 30px;">
                     <p>Tu jersey aparecerá en aproximandamente</p>
+                    <p id="countdown"></p>
                     <div id="timer">
                         @if ($isPar)
                             <h5 class="text-primary">Vaya a la sala "A"</h5>
@@ -130,9 +169,50 @@
         </div>
         <br>
     </div>
+    <div class="row setup-content {{ $currentStep != 5 ? 'displayNone' : '' }}" id="step-5">
+        <div class="col-xs-12">
+            <div class="col-md-12" style="margin: 10%;">
+                <h1 class="text-white">¡Pronto verás</h1>
+                <h1 class="text-white">tu jersey!</h1>
+                <br>
+                <div align="center" style="padding-top: 30px;">
+                    <button class="btn btn-white nextBtn btn-lg pull-right text-dark" wire:click="clearForm(1)"
+                        type="button">Hacer otro jersey</button>
+                    <br>
+                    <img src="{{ asset('assets/logo-kavak.png') }}">
+                </div>
+            </div>
+        </div>
+    </div>
     <br>
 </div>
 
 <script>
-    $('#timer').show(0).delay(1000).hide(0);
+    Livewire.emit('countdown');
+    // Set the date we're counting down to
+    var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="demo"
+        document.getElementById("countdown").innerHTML = seconds + "s ";
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("countdown").innerHTML = "EXPIRED";
+        }
+    }, 1000);
+
+
 </script>

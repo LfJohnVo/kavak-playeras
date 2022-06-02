@@ -23,7 +23,7 @@
 
 </head>
 
-<body class="mt-5" style="background-image: url({{ asset('assets/fondo-blanco.png') }})">
+<body class="mt-5">
     <div class="container">
         <div class="row">
             <div class="col">
