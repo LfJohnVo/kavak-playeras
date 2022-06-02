@@ -20,6 +20,16 @@
         </style>
     @endif
 
+    @if ($currentStep == 4)
+        <style>
+            .progress {
+                display: none;
+            }
+
+        </style>
+
+    @endif
+
     <div class="progress">
         @switch($currentStep)
             @case(1)
@@ -119,6 +129,8 @@
                 </div> --}}
                 <div style="display: flex; justify-content: center; align-items: center;">
                     <img style="justify-content: center;" src="{{ asset('assets/Kavak-jersey-SM.png') }}" alt="">
+                    <div class="centered1">{{ $nombre }}</div>
+                    <div class="numero1">{{ $numero }}</div>
                 </div>
 
                 <div align="center" style="padding-top: 30px;">
@@ -148,11 +160,11 @@
 
                 <div align="center" style="padding-top: 30px;">
                     <p>Tu jersey aparecerá en aproximadamente</p>
-                    <p id="countdown"></p>
+                    <div class="countdown text-primary" style="font-size: 28px;"></div>
                     <div id="timer">
                         @if ($isPar)
                             <h5 class="text-primary">Vaya a la sala "A"</h5>
-                            @if (!is_null($parAntes[0]->num))
+                            @if (isset($parAntes[0]->num))
                                 <p>Hay: {{ $parAntes[0]->num }} antes de ti</p>
                             @endif
                         @else
@@ -171,45 +183,40 @@
     <div class="row setup-content {{ $currentStep != 5 ? 'displayNone' : '' }}" id="step-5">
         <div class="col-xs-12">
             <div class="col-md-12" style="margin: 10%;">
-                <h1 class="text-white">¡Pronto verás</h1>
-                <h1 class="text-white">tu jersey!</h1>
+                <h1 class="text-white" align="center">¡Pronto verás</h1>
+                <h1 class="text-white" align="center">tu jersey!</h1>
                 <br>
                 <div align="center" style="padding-top: 30px;">
                     <button class="btn btn-white nextBtn btn-lg pull-right text-dark" wire:click="clearForm(1)"
                         type="button">Hacer otro jersey</button>
                     <br>
-                    <img src="{{ asset('assets/logo-kavak.png') }}">
+                    <img style="padding-top: 50%; width: 50%;" src="{{ asset('assets/logo-kavak.png') }}">
                 </div>
             </div>
         </div>
     </div>
     <br>
 </div>
-
 <script>
-    Livewire.emit('countdown');
-    // Set the date we're counting down to
-    var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+    window.addEventListener('TerminaJersey', (e) => {
+        var timer2 = "0:35";
+        var interval = setInterval(function() {
+            var timer = timer2.split(':');
+            //by parsing integer, I avoid all extra string processing
+            var minutes = parseInt(timer[0], 10);
+            var seconds = parseInt(timer[1], 10);
+            --seconds;
+            minutes = (seconds < 0) ? --minutes : minutes;
+            if (minutes < 0) clearInterval(interval);
+            seconds = (seconds < 0) ? 59 : seconds;
+            seconds = (seconds < 10) ? '0' + seconds : seconds;
+            //minutes = (minutes < 10) ?  minutes : minutes;
+            $('.countdown').html(minutes + ':' + seconds);
+            timer2 = minutes + ':' + seconds;
+            if (timer2 == '0:01') {
+                Livewire.emit('countdown');
+            }
+        }, 1000);
 
-    // Update the count down every 1 second
-    var x = setInterval(function() {
-
-        // Get today's date and time
-        var now = new Date().getTime();
-
-        // Find the distance between now and the count down date
-        var distance = countDownDate - now;
-
-        // Time calculations for days, hours, minutes and seconds
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        // Display the result in the element with id="demo"
-        document.getElementById("countdown").innerHTML = seconds + "s ";
-
-        // If the count down is finished, write some text
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("countdown").innerHTML = "EXPIRED";
-        }
-    }, 1000);
+    });
 </script>
