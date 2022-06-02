@@ -16,6 +16,13 @@ class FormularioComponent extends Component
     public $successMessage = '';
     public $ultimoID, $isPar, $parAntes = 0, $imParAntes;
 
+    protected $listeners = ['countdown' => 'finishPage'];
+
+    public function finishPage()
+    {
+        dd('finish');
+    }
+
     /**
      * Write code on Method
      *
