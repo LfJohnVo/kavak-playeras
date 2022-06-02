@@ -11,8 +11,8 @@ class FormularioComponent extends Component
 {
     use LivewireAlert;
 
-    public $currentStep = 1;
-    public $nombre, $numero, $status = 1, $stock;
+    public $currentStep = 0;
+    public $nombre, $numero;
     public $successMessage = '';
     public $ultimoID, $isPar, $parAntes = 0, $imParAntes;
 
@@ -85,7 +85,6 @@ class FormularioComponent extends Component
         $this->parAntes = DB::select("SELECT count(*) as num FROM camisetas WHERE MOD (id, 2) = 1 AND id < $this->ultimoID ORDER BY id ASC;");
 
         $this->imParAntes = DB::select("SELECT count(*) as num FROM camisetas WHERE MOD (id, 2) = 0 AND id < $this->ultimoID ORDER BY id ASC;");
-
     }
 
     /**
@@ -96,6 +95,11 @@ class FormularioComponent extends Component
     public function back($step)
     {
         $this->currentStep = $step;
+    }
+
+    public function enter()
+    {
+        $this->currentStep = 1;
     }
 
     /**

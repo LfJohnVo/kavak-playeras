@@ -1,4 +1,25 @@
 <div>
+
+    @if ($currentStep == 0)
+        <style>
+            body {
+                background-image: url({{ asset('assets/fondo-azul.png') }});
+            }
+
+            .progress {
+                display: none;
+            }
+
+        </style>
+    @else
+        <style>
+            body {
+                background-image: url({{ asset('assets/fondo-blanco.png') }});
+            }
+
+        </style>
+    @endif
+
     <div class="progress">
         @switch($currentStep)
             @case(1)
@@ -20,6 +41,23 @@
         @endswitch
     </div>
     <br>
+    <div class="row setup-content {{ $currentStep != 0 ? 'displayNone' : '' }}" id="step-0">
+        <div class="col-xs-12">
+            <div class="col-md-12" style="margin: 10%;">
+                <img style="padding-bottom: 5%;" src="{{ asset('assets/logo-kavak.png') }}">
+                <h1 class="text-white">Personaliza el</h1>
+                <h1 class="text-white">jersey gigante</h1>
+                <h1 class="text-white">con tu nombre</h1>
+                <h1 class="text-white">y número</h1>
+                <br>
+                <div align="center" style="padding-top: 30px;">
+                    <button class="btn btn-white nextBtn btn-lg pull-right text-dark" wire:click="enter"
+                        type="button">Continuar</button>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row setup-content {{ $currentStep != 1 ? 'displayNone' : '' }}" id="step-1">
         <div class="col-xs-12">
             <div class="col-md-12">
@@ -129,6 +167,23 @@
             </div>
         </div>
         <br>
+    </div>
+    <div class="row setup-content {{ $currentStep != 5 ? 'displayNone' : '' }}" id="step-0">
+        <div class="col-xs-12">
+            <div class="col-md-12" style="margin: 10%;">
+                <img style="padding-bottom: 5%;" src="{{ asset('assets/logo-kavak.png') }}">
+                <h1 class="text-white">Personaliza el</h1>
+                <h1 class="text-white">jersey gigante</h1>
+                <h1 class="text-white">con tu nombre</h1>
+                <h1 class="text-white">y número</h1>
+                <br>
+                <div align="center" style="padding-top: 30px;">
+                    <button class="btn btn-white nextBtn btn-lg pull-right text-dark" wire:click="enter"
+                        type="button">Continuar</button>
+                    <br>
+                </div>
+            </div>
+        </div>
     </div>
     <br>
 </div>
