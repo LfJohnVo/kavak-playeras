@@ -45,6 +45,34 @@
             font-size: 50px;
         }
 
+        .centered1 {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-transform: uppercase;
+            font-size: 28px;
+            color: white !important;
+        }
+
+        .numero1 {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            color: white !important;
+        }
+
+        input {
+            font-size: 36px !important;
+            color: #00CCFF !important;
+            height: 200px;
+            box-shadow: 5px 5px 5px gray;
+            text-align: center;
+        }
+
+
     </style>
 </head>
 
@@ -64,6 +92,7 @@
     </script> --}}
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.1.0/mdb.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     @livewireScripts
 

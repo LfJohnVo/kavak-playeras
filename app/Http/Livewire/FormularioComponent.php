@@ -20,7 +20,7 @@ class FormularioComponent extends Component
 
     public function finishPage()
     {
-        dd('finish');
+        $this->currentStep = 5;
     }
 
     /**
@@ -95,6 +95,9 @@ class FormularioComponent extends Component
         $this->parAntes = DB::select("SELECT count(*) as num FROM camisetas WHERE MOD (id, 2) = 1 AND id < $this->ultimoID ORDER BY id ASC;");
 
         $this->imParAntes = DB::select("SELECT count(*) as num FROM camisetas WHERE MOD (id, 2) = 0 AND id < $this->ultimoID ORDER BY id ASC;");
+
+        $this->dispatchBrowserEvent('TerminaJersey');
+
     }
 
     /**
@@ -122,8 +125,6 @@ class FormularioComponent extends Component
         $this->currentStep = $step;
         $this->nombre = '';
         $this->numero = '';
-        $this->stock = '';
-        $this->status = 1;
         $this->alerta('Formulario reiniciado');
     }
 
