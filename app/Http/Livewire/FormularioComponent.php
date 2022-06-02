@@ -42,7 +42,7 @@ class FormularioComponent extends Component
     {
         $validatedData = $this->validate(
             [
-                'nombre' => 'required',
+                'nombre' => 'required|max:6',
             ],
             [
                 'nombre.required' => 'El campo nombre es obligatorio.',
@@ -61,10 +61,13 @@ class FormularioComponent extends Component
     {
         $validatedData = $this->validate(
             [
-                'numero' => 'required',
+                'numero' => 'required|max:2',
             ],
             [
                 'numero.required' => 'El campo número es obligatorio.',
+            ],
+            [
+                'numero.max' => 'El campo número debe tener maximo dos numeros.',
             ],
         );
 

@@ -140,15 +140,14 @@
                 <h1 align="center">¿Listo para ver</h1>
                 <h1 align="center">tu jersey?</h1>
 
-                {{-- <div class="form-group" style="padding-top: 10%;">
+                <div style="display: flex; justify-content: center; align-items: center;" class="contenedor">
                     <img style="justify-content: center;" src="{{ asset('assets/Kavak-jersey-SM.png') }}" alt="">
-                </div> --}}
-                <div style="display: flex; justify-content: center; align-items: center;">
-                    <img style="justify-content: center;" src="{{ asset('assets/Kavak-jersey-SM.png') }}" alt="">
+                    <div class="centered">{{ $nombre }}</div>
+                    <div class="numero">{{ $numero }}</div>
                 </div>
 
                 <div align="center" style="padding-top: 30px;">
-                    <p>Tu jersey aparecerá en aproximandamente</p>
+                    <p>Tu jersey aparecerá en aproximadamente</p>
                     <p id="countdown"></p>
                     <div id="timer">
                         @if ($isPar)
@@ -213,6 +212,4 @@
             document.getElementById("countdown").innerHTML = "EXPIRED";
         }
     }, 1000);
-
-
 </script>

@@ -21,6 +21,31 @@
     <title>Kavak</title>
     @livewireStyles
 
+    <style>
+        .contenedor {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .centered {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-transform: uppercase;
+            font-size: 28px;
+        }
+
+        .numero {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+        }
+
+    </style>
 </head>
 
 <body class="mt-5">
