@@ -47,7 +47,7 @@
 
         .centered1 {
             position: absolute;
-            top: 42%;
+            top: 30%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-transform: uppercase;
