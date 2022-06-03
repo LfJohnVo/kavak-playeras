@@ -74,7 +74,7 @@
                 <h1 align="center">¡Hola!</h1>
                 <h1 align="center">Ingresa tu nombre</h1>
                 <div class="form-group" style="padding-top: 10%;">
-                    <input type="text" wire:model="nombre" class="form-control" id="taskTitle">
+                    <input type="text" wire:model.lazy="nombre" class="form-control" id="taskTitle">
                     @error('nombre')
                         <h5 class="text-danger">{{ $message }}</h5>
                     @enderror
@@ -95,7 +95,7 @@
                 <h1 align="center">Ahora ingresa tu</h1>
                 <h1 align="center">número favorito</h1>
                 <div class="form-group" style="padding-top: 10%;">
-                    <input type="number" wire:model="numero" class="form-control" id="taskTitle">
+                    <input type="number" wire:model.lazy="numero" class="form-control" id="taskTitle">
                     @error('numero')
                         <h5 class="text-danger">{{ $message }}</h5>
                     @enderror

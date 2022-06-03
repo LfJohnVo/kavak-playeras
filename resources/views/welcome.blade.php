@@ -47,7 +47,7 @@
 
         .centered1 {
             position: absolute;
-            top: 30%;
+            top: 42%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-transform: uppercase;
@@ -57,7 +57,7 @@
 
         .numero1 {
             position: absolute;
-            top: 35%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 50px;
