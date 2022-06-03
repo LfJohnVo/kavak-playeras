@@ -127,7 +127,7 @@
                 {{-- <div class="form-group" style="padding-top: 10%;">
                     <img style="justify-content: center;" src="{{ asset('assets/Kavak-jersey-SM.png') }}" alt="">
                 </div> --}}
-                <div style="display: flex; justify-content: center; align-items: center;">
+                <div style="display: flex; justify-content: center; align-items: center; position: relative;">
                     <img style="justify-content: center;" src="{{ asset('assets/Kavak-jersey-SM.png') }}" alt="">
                     <div class="centered1">{{ $nombre }}</div>
                     <div class="numero1">{{ $numero }}</div>
@@ -152,7 +152,7 @@
                 <h1 align="center">¿Listo para ver</h1>
                 <h1 align="center">tu jersey?</h1>
 
-                <div style="display: flex; justify-content: center; align-items: center;" class="contenedor">
+                <div style="display: flex; justify-content: center; align-items: center; position: relative;" class="contenedor">
                     <img style="justify-content: center;" src="{{ asset('assets/Kavak-jersey-SM.png') }}" alt="">
                     <div class="centered">{{ $nombre }}</div>
                     <div class="numero">{{ $numero }}</div>
