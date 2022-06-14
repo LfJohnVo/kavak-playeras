@@ -16,6 +16,7 @@
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.1.0/mdb.min.css" rel="stylesheet" />
     <link href="{{ asset('multi.css') }}" rel="stylesheet" id="bootstrap">
+	<link href="{{ asset('zevs.css') }}" rel="stylesheet" >
     <link href="{{ asset('jersey.css') }}" rel="stylesheet" id="bootstrap">
 
     <title>Kavak</title>
@@ -57,7 +58,7 @@
 
         .numero1 {
             position: absolute;
-            top: 35%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 50px;
@@ -65,7 +66,6 @@
         }
 
         input {
-            font-size: 36px !important;
             color: #00CCFF !important;
             height: 200px;
             box-shadow: 5px 5px 5px gray;
@@ -102,3 +102,4 @@
 </body>
 
 </html>
+

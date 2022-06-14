@@ -60,11 +60,12 @@
                 <h1 class="text-white">con tu nombre</h1>
                 <h1 class="text-white">y número</h1>
                 <br>
-                <div align="center" style="padding-top: 30px;">
-                    <button class="btn btn-white nextBtn btn-lg pull-right text-dark" wire:click="enter"
-                        type="button">Continuar</button>
-                    <br>
-                </div>
+                <div style="width: 100%; height: 100px; position: relative;">
+					<a style="width: 100%; text-align: center; position: absolute; bottom: 0px;">
+						<button class="btn btn-white nextBtn btn-lg pull-right text-dark" wire:click="enter"
+                        type="button" >Continuar</button>
+					</a>
+				</div>
             </div>
         </div>
     </div>
@@ -74,7 +75,7 @@
                 <h1 align="center">¡Hola!</h1>
                 <h1 align="center">Ingresa tu nombre</h1>
                 <div class="form-group" style="padding-top: 10%;">
-                    <input type="text" wire:model="nombre" class="form-control" id="taskTitle">
+                    <input type="text" wire:model.lazy="nombre" class="form-control" id="taskTitle" autocomplete="off">
                     @error('nombre')
                         <h5 class="text-danger">{{ $message }}</h5>
                     @enderror
@@ -84,8 +85,13 @@
                     <button class="btn btn-dark nextBtn btn-lg pull-right" wire:click="firstStepSubmit"
                         type="button">Continuar</button>
                     <br>
-                    <img style="padding-top: 5%;" src="{{ asset('assets/logo-kavak-negro.png') }}">
+
                 </div>
+				<div style="width: 100%; height: 400px; position: relative;">
+					<a style="width: 100%; text-align: center; position: absolute; bottom: 0px;">
+						<img style="padding-top: 5%;" src="{{ asset('assets/logo-kavak-negro.png') }}">
+					</a>
+				</div>
             </div>
         </div>
     </div>
@@ -95,7 +101,7 @@
                 <h1 align="center">Ahora ingresa tu</h1>
                 <h1 align="center">número favorito</h1>
                 <div class="form-group" style="padding-top: 10%;">
-                    <input type="number" wire:model="numero" class="form-control" id="taskTitle">
+                    <input type="number" wire:model.lazy="numero" class="form-control" id="taskTitle" autocomplete="off">
                     @error('numero')
                         <h5 class="text-danger">{{ $message }}</h5>
                     @enderror
@@ -103,12 +109,17 @@
                 <br>
                 <div align="center" style="padding-top: 30px;">
                     <button class="btn btn-dark nextBtn btn-lg pull-right" wire:click="back(1)"
-                        type="button">Volver</button>
+                        type="button" style="margin-right:20px;">Volver</button>
                     <button class="btn btn-dark nextBtn btn-lg pull-right" wire:click="secondStepSubmit"
                         type="button">Continuar</button>
                     <br>
-                    <img style="padding-top: 5%;" src="{{ asset('assets/logo-kavak-negro.png') }}">
+
                 </div>
+				<div style="width: 100%; height: 400px; position: relative;">
+					<a style="width: 100%; text-align: center; position: absolute; bottom: 0px;">
+						<img style="padding-top: 5%;" src="{{ asset('assets/logo-kavak-negro.png') }}">
+					</a>
+				</div>
 
                 {{-- <button class="btn btn-primary nextBtn btn-lg pull-right" type="button"
                     wire:click="secondStepSubmit">Next</button> --}}
@@ -127,7 +138,7 @@
                 {{-- <div class="form-group" style="padding-top: 10%;">
                     <img style="justify-content: center;" src="{{ asset('assets/Kavak-jersey-SM.png') }}" alt="">
                 </div> --}}
-                <div style="display: flex; justify-content: center; align-items: center;">
+                <div style="display: flex; justify-content: center; align-items: center; position: relative;">
                     <img style="justify-content: center;" src="{{ asset('assets/Kavak-jersey-SM.png') }}" alt="">
                     <div class="centered1">{{ $nombre }}</div>
                     <div class="numero1">{{ $numero }}</div>
@@ -152,7 +163,7 @@
                 <h1 align="center">¿Listo para ver</h1>
                 <h1 align="center">tu jersey?</h1>
 
-                <div style="display: flex; justify-content: center; align-items: center;" class="contenedor">
+                <div style="display: flex; justify-content: center; align-items: center; position: relative;" class="contenedor">
                     <img style="justify-content: center;" src="{{ asset('assets/Kavak-jersey-SM.png') }}" alt="">
                     <div class="centered">{{ $nombre }}</div>
                     <div class="numero">{{ $numero }}</div>
@@ -163,14 +174,14 @@
                     <div class="countdown text-primary" style="font-size: 28px;"></div>
                     <div id="timer">
                         @if ($isPar)
-                            <h5 class="text-primary">Vaya a la sala "A"</h5>
+                            <h5 class="text-primary">Lado "A"</h5>
                             @if (isset($parAntes[0]->num))
-                                <p>Hay: {{ $parAntes[0]->num }} antes de ti</p>
+                                <p>Hay <span id="num-antes">{{ $parAntes[0]->num }}</span> antes de ti</p>
                             @endif
                         @else
-                            <h5 class="text-primary">Vaya a la sala "B"</h5>
+                            <h5 class="text-primary">Lado "B"</h5>
                             @if (isset($imParAntes[0]->num))
-                                <p>Hay: {{ $imParAntes[0]->num }} antes de ti</p>
+                                <p>Hay <span id="num-antes">{{ $imParAntes[0]->num }}</span> antes de ti</p>
                             @endif
                         @endif
                     </div>
@@ -199,7 +210,14 @@
 </div>
 <script>
     window.addEventListener('TerminaJersey', (e) => {
-        var timer2 = "0:35";
+        var txtNum = document.getElementById('num-antes').innerHTML;
+		var num = parseInt(txtNum.trim());
+		var total = (num * 40) + 10; // total segundos
+		var minutos = parseInt(total/60); // minutos - segundos
+		var segundos = parseInt(total-(minutos*60)) // segundos sobrantes
+		var timer2 = minutos+":"+(segundos < 10 ? "0" : "")+segundos;
+
+		timer2 = timer2.trim(timer2);
         var interval = setInterval(function() {
             var timer = timer2.split(':');
             //by parsing integer, I avoid all extra string processing
