@@ -43,3 +43,13 @@ body{
 .displayNone{
   display: none;
 }
+
+
+@font-face {
+    font-family: 'nokasemibold';
+    src: url(https://noka-semibold-webfont.woff2) format('woff2'),
+         url(noka-semibold-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}

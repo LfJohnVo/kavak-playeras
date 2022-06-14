@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Camiseta;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -17,11 +18,6 @@ class FormularioComponent extends Component
     public $ultimoID, $isPar, $parAntes = 0, $imParAntes;
 
     protected $listeners = ['countdown' => 'finishPage'];
-
-    public function finishPage()
-    {
-        $this->currentStep = 5;
-    }
 
     /**
      * Write code on Method
@@ -40,16 +36,26 @@ class FormularioComponent extends Component
      */
     public function firstStepSubmit()
     {
-        $validatedData = $this->validate(
-            [
-                'nombre' => 'required|max:6',
-            ],
-            [
-                'nombre.required' => 'El campo nombre es obligatorio.',
-            ],
-        );
+        $string = app('profanityFilter')->replaceWith('#')->replaceFullWords(true)->filter($this->nombre);
 
-        $this->currentStep = 2;
+        if (Str::contains($string, '#')) {
+            $this->alerta('error', 'El nombre no puede contener palabras ofensivas');
+            $this->nombre = $string;
+        } else {
+            $validatedData = $this->validate(
+                [
+                    'nombre' => 'required|profanity|max:8',
+                ],
+                [
+                    'nombre.required' => 'El campo no puede estar vacío.',
+                ],
+                [
+                    'nombre.max' => 'El campo puede tener hasta 8 caracteres.',
+                ],
+            );
+
+            $this->currentStep = 2;
+        }
     }
 
     /**
@@ -67,7 +73,7 @@ class FormularioComponent extends Component
                 'numero.required' => 'El campo número es obligatorio.',
             ],
             [
-                'numero.max' => 'El campo número debe tener maximo dos numeros.',
+                'numero.max' => 'El campo puede tener hasta 8 caracteres.',
             ],
         );
 
@@ -86,18 +92,22 @@ class FormularioComponent extends Component
             'numero' => $this->numero,
         ]);
 
-        $this->currentStep = 4;
-
         $this->ultimoID = Camiseta::latest()->first()->id;
 
         $this->isPar = $this->ultimoID % 2 == 0;
 
-        $this->parAntes = DB::select("SELECT count(*) as num FROM camisetas WHERE MOD (id, 2) = 1 AND id < $this->ultimoID ORDER BY id ASC;");
+        $this->parAntes = DB::select("SELECT count(*) as num FROM camisetas WHERE MOD (id, 2) = 0 AND id < $this->ultimoID ORDER BY id ASC;");
 
-        $this->imParAntes = DB::select("SELECT count(*) as num FROM camisetas WHERE MOD (id, 2) = 0 AND id < $this->ultimoID ORDER BY id ASC;");
+        $this->imParAntes = DB::select("SELECT count(*) as num FROM camisetas WHERE MOD (id, 2) = 1 AND id < $this->ultimoID ORDER BY id ASC;");
+
+        $this->currentStep = 4;
 
         $this->dispatchBrowserEvent('TerminaJersey');
+    }
 
+    public function finishPage()
+    {
+        $this->currentStep = 5;
     }
 
     /**
@@ -125,12 +135,12 @@ class FormularioComponent extends Component
         $this->currentStep = $step;
         $this->nombre = '';
         $this->numero = '';
-        $this->alerta('Formulario reiniciado');
+        $this->alerta('success', 'Formulario reiniciado');
     }
 
-    public function alerta($message)
+    public function alerta($type, $message)
     {
-        $this->alert('success', $message, [
+        $this->alert($type, $message, [
             'position' => 'top-end',
             'timer' => 3000,
             'toast' => true,
